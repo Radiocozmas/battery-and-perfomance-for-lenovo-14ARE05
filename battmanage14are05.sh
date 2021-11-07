@@ -16,20 +16,21 @@ if [ -e /proc/acpi/call ] || sudo modprobe acpi_call ; then
   acpi -a
   else echo -e "You need to install acpi_call kernel module"; exit 1
 fi
-echo
+echo "-----------------------------"
+       echo "       Current state         "
        echo "-----------------------------"
 echo '\_SB.PCI0.LPC0.EC0.BTSG' | tee /proc/acpi/call > /dev/null
 calldata=$(tr -d '\0' < /proc/acpi/call)
 if [ $calldata == 0x0called ] ; then
-       echo "| Battery Conservation OFF  |"
-  else echo "| Battery Conservation ON   |";
+       echo "| Battery Conservation   OFF|"
+  else echo "| Battery Conservation    ON|";
 fi
 echo "-----------------------------"
 echo '\_SB.PCI0.LPC0.EC0.FCGM' | tee /proc/acpi/call > /dev/null
 calldata=$(tr -d '\0' < /proc/acpi/call)
 if [ $calldata == 0x0called ] ; then
-       echo "|     Rapid Charge OFF      |"
-  else echo "|     Rapid Charge ON       |";
+       echo "| Rapid Charge           OFF|"
+  else echo "| Rapid Charge            ON|";
 fi
 
 echo "-----------------------------"
@@ -65,16 +66,16 @@ if [ -z "$1" ]; then
 echo "-----------------------------"
 echo
 echo "-----------------------------"
+echo "  \"Battery Warranty & Settings\""
 echo "1. Enable \"Battery Conservation Mode\" 60% battery maximum. Use this if you always AC plug in"
-echo "2. Enable \"Battery Full Charge Mode\" 100% battery maximum."
-echo "-----------------------------"
+echo "2. Disable \"Battery Conservation Mode\" 100% battery maximum."
 echo "3. Enable \"Rapid Charge\""
 echo "4. Disable \"Rapid Charge\""
 echo "-----------------------------"
 echo "  \"Power Smart Settings\" "
-echo "5. Set to \"Intelligent Cooling\" "
-echo "6. Set to \"Performance mode\""
-echo "7. Set to \"Battery Saving\""
+echo "5. Enable \"Intelligent Cooling\" "
+echo "6. Enable \"Performance mode\""
+echo "7. Enable \"Battery Saving\""
 echo "-----------------------------"
 echo "8. Exit"
 echo "-----------------------------"
